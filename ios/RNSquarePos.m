@@ -1,6 +1,9 @@
 
 #import "RNSquarePos.h"
-#import <SquarePointOfSaleSDK/SquarePointOfSaleSDK.h>
+//Following have been added as the umbrella header file of SquarePointOfSaleSDK.h is no more shipped from upstream SquarePointOfSaleSDK
+#import <SquarePointOfSaleSDK/SCCMoney.h>
+#import <SquarePointOfSaleSDK/SCCAPIRequest.h>
+#import <SquarePointOfSaleSDK/SCCAPIConnection.h>
 #import <Foundation/Foundation.h>
 
 @implementation RNSquarePos
@@ -21,7 +24,7 @@ RCT_EXPORT_METHOD(
 	NSError *error;
 	NSURL *const callbackURL = [NSURL URLWithString:callbackUrl];
 	SCCMoney *const amount = [SCCMoney moneyWithAmountCents:_amount currencyCode:currency error:NULL];
-	[SCCAPIRequest setClientID:applicationId];
+	[SCCAPIRequest setApplicationID:applicationId]; //clientID property is deprecated. Instead per documentation applicationID property needs to be set.
 
 	// notes
 	NSString *notes = nil;
