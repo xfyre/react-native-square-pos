@@ -12,7 +12,7 @@ buildscript {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 30
     buildToolsVersion "28.0.3"
 
     defaultConfig {
@@ -34,4 +34,3 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     compile 'com.squareup.sdk:point-of-sale-sdk:2.+'
 }
-  
