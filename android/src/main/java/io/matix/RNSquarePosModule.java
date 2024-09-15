@@ -13,7 +13,6 @@ import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Callback;
 import com.facebook.react.bridge.ActivityEventListener;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.facebook.react.uimanager.events.RCTEventEmitter;
 import com.squareup.sdk.pos.PosClient;
 import com.squareup.sdk.pos.PosSdk;
 import com.squareup.sdk.pos.ChargeRequest;
@@ -57,7 +56,7 @@ class SquarePOSListener implements ActivityEventListener {
 		}
 
 		this.reactContext
-			.getJSModule(RCTEventEmitter.class)
+			.getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
 			.emit("RNSquarePOSResponse", params);
 	}
 
