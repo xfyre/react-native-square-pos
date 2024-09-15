@@ -1,4 +1,4 @@
-import { NativeModules, DeviceEventEmitter, Platform, Linking } from 'react-native'
+import { NativeModules, Platform, Linking, AppState } from 'react-native'
 const SquarePOS = NativeModules.RNSquarePos
 
 let callbackUrl
@@ -35,7 +35,7 @@ const androidErrors = {
 	USER_NOT_LOGGED_IN: errors.NOT_LOGGED_IN,
 	USER_NOT_ACTIVATED: errors.USER_NOT_ACTIVE,
 	NO_NETWORK: errors.NO_NETWORK_CONNECTION,
-	TRANSACTION_ALREADY_IN_PROGRESS: errors.TRANSACTION_ALREADY_IN_PROGRESS, 
+	TRANSACTION_ALREADY_IN_PROGRESS: errors.TRANSACTION_ALREADY_IN_PROGRESS,
   INVALID_REQUEST: errors.INVALID_REQUEST,
 }
 
@@ -55,7 +55,7 @@ const RNSquarePos = {
 				})
 
 				function handleResponse(data) {
-					DeviceEventEmitter.removeListener('RNSquarePOSResponse', handleResponse);
+					AppState.removeEventListener('RNSquarePOSResponse', handleResponse);
 					if (data.errorCode) {
 						if (androidErrors[data.errorCode]) {
 							return reject({
@@ -74,7 +74,7 @@ const RNSquarePos = {
 					}
 				}
 
-				DeviceEventEmitter.addListener('RNSquarePOSResponse', handleResponse);
+				AppState.addEventListener('RNSquarePOSResponse', handleResponse);
 			} else if (Platform.OS === 'ios') {
 				SquarePOS.startTransaction(amount, currency, options, callbackUrl, (errorCode, errorDescription) => {
 					switch (errorCode) {
