@@ -93,8 +93,9 @@ const RNSquarePos = {
 					}
 				})
 
+				let listener = null;
 				function handleIOSResponse(event) {
-					Linking.removeEventListener('url', handleIOSResponse);
+					if (listener) { listener.remove(); }
 					const url = event.url
 
 					if (url.match(callbackUrl)) {
@@ -120,7 +121,7 @@ const RNSquarePos = {
 					}
 				}
 
-				Linking.addEventListener('url', handleIOSResponse);
+				listener = Linking.addEventListener('url', handleIOSResponse);
 			}
 		})
 	},
